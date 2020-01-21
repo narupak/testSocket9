@@ -43,7 +43,7 @@ export class AppComponent {
   countYear = 0;
 
   getDayinYear(year) {
-    if (year % 4 === 0) {
+    if (year % 4 === 0 && ((year % 100 !== 0) || (year % 400 === 0))) {
       this.day += 366;
     } else {
       this.day += 365;
@@ -51,49 +51,12 @@ export class AppComponent {
   }
 
   getDayinyearSelected(year, monthSelected, daySelected) {
-    if (year % 4 === 0) {
+    if (year % 4 === 0 && ((year % 100 !== 0) || (year % 400 === 0))) {
       for (var month = 1; month <= monthSelected; month++) {
         if (month === monthSelected) {
           this.day += daySelected;
         } else {
-          switch (month) {
-            case 1:
-              this.day += 31;
-              break;
-            case 2:
-              this.day += 29;
-              break;
-            case 3:
-              this.day += 31;
-              break;
-            case 4:
-              this.day += 30;
-              break;
-            case 5:
-              this.day += 31;
-              break;
-            case 6:
-              this.day += 30;
-              break;
-            case 7:
-              this.day += 31;
-              break;
-            case 8:
-              this.day += 31;
-              break;
-            case 9:
-              this.day += 30;
-              break;
-            case 10:
-              this.day += 31;
-              break;
-            case 11:
-              this.day += 30;
-              break;
-            case 12:
-              this.day += 31;
-              break;
-          }
+          this.getMonthInLeapYear(month);
         }
       }
     } else {
@@ -101,46 +64,92 @@ export class AppComponent {
         if (month === monthSelected) {
           this.day += daySelected;
         } else {
-          switch (month) {
-            case 1:
-              this.day += 31;
-              break;
-            case 2:
-              this.day += 28;
-              break;
-            case 3:
-              this.day += 31;
-              break;
-            case 4:
-              this.day += 30;
-              break;
-            case 5:
-              this.day += 31;
-              break;
-            case 6:
-              this.day += 30;
-              break;
-            case 7:
-              this.day += 31;
-              break;
-            case 8:
-              this.day += 31;
-              break;
-            case 9:
-              this.day += 30;
-              break;
-            case 10:
-              this.day += 31;
-              break;
-            case 11:
-              this.day += 30;
-              break;
-            case 12:
-              this.day += 31;
-              break;
-          }
+          this.getmonthInYear(month);
         }
       }
+    }
+  }
+
+
+  getMonthInLeapYear(month){
+    switch (month) {
+      case 1:
+        this.day += 31;
+        break;
+      case 2:
+        this.day += 29;
+        break;
+      case 3:
+        this.day += 31;
+        break;
+      case 4:
+        this.day += 30;
+        break;
+      case 5:
+        this.day += 31;
+        break;
+      case 6:
+        this.day += 30;
+        break;
+      case 7:
+        this.day += 31;
+        break;
+      case 8:
+        this.day += 31;
+        break;
+      case 9:
+        this.day += 30;
+        break;
+      case 10:
+        this.day += 31;
+        break;
+      case 11:
+        this.day += 30;
+        break;
+      case 12:
+        this.day += 31;
+        break;
+    }
+  }
+
+  getmonthInYear(month){
+    switch (month) {
+      case 1:
+        this.day += 31;
+        break;
+      case 2:
+        this.day += 28;
+        break;
+      case 3:
+        this.day += 31;
+        break;
+      case 4:
+        this.day += 30;
+        break;
+      case 5:
+        this.day += 31;
+        break;
+      case 6:
+        this.day += 30;
+        break;
+      case 7:
+        this.day += 31;
+        break;
+      case 8:
+        this.day += 31;
+        break;
+      case 9:
+        this.day += 30;
+        break;
+      case 10:
+        this.day += 31;
+        break;
+      case 11:
+        this.day += 30;
+        break;
+      case 12:
+        this.day += 31;
+        break;
     }
   }
 
@@ -151,7 +160,7 @@ export class AppComponent {
         this.month = rs.value;
       }
     })
-    for (var year = 1990; year <= +dateArray[0]; year++) {
+    for (var year = 1900; year <= +dateArray[0]; year++) {
       if (year === +dateArray[0]) {
         this.getDayinyearSelected(year, +this.month, +dateArray[2]);
       } else {
@@ -163,7 +172,7 @@ export class AppComponent {
         this.monthCharacter = rs.value;
       }
     })
-
+    
     switch (this.day%7) {
       case 0:
         this.sumDay = `${this.monthCharacter} , ${dateArray[2]}, ${dateArray[0]} is Sunday`;
